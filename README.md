@@ -1,8 +1,16 @@
 # Quantra AI Portfolio Assistant
 
-An independent AI portfolio research assistant built with Python, LangGraph, RAG, and PostgreSQL/pgvector. It can combine retrieved research documents with structured market and macroeconomic data exposed through external APIs.
+An independent AI-powered portfolio research assistant for individual investors (B2C), starting in Brazil and covering both Brazilian and international investments.
 
 > This project is fully independent from Quantra V2. It does not depend on Quantra V2 services, database, authentication, or internal APIs. External data providers are accessed through replaceable provider adapters.
+
+## Product direction
+
+- **Audience:** individual investors, from beginners to experienced self-directed investors.
+- **Initial market:** Brazil, with Portuguese as the first product language and BRL as the primary display currency.
+- **Investment coverage:** Brazilian assets (starting with B3) and international assets (starting with the US market).
+- **Future business model:** a SaaS product with free and paid subscription tiers.
+- **Product principle:** explain portfolio exposures, market context, risks, and scenarios with traceable evidence. Do not present unsupported buy/sell instructions as certainty.
 
 ## Project goals
 
@@ -20,6 +28,7 @@ An independent AI portfolio research assistant built with Python, LangGraph, RAG
 3. **Evidence before answers.** Responses should distinguish sourced facts from interpretation and say when evidence is insufficient or stale.
 4. **Provider independence.** API providers, embedding models, and LLM deployments are configured behind interfaces.
 5. **Privacy by design.** Public demos and tests use synthetic portfolios and sample documents only.
+6. **Commercial readiness without premature complexity.** Keep user data ownership, tenant isolation, data licensing, and usage-cost controls in the architecture; implement SaaS billing and advanced tenancy in a later phase.
 
 ## Initial technology direction
 
@@ -60,16 +69,21 @@ Setup instructions will be added with the first runnable vertical slice. Never c
 
 ## Roadmap
 
-- [ ] Repository scaffold and engineering conventions
-- [ ] FastAPI health endpoint and configuration
+- [x] Repository scaffold and engineering conventions
+- [x] FastAPI health endpoint and configuration
+- [ ] Define normalized macro and market data contracts
+- [ ] Implement Brazilian macro data adapter (BCB SGS)
+- [ ] Implement US macro data adapter (FRED)
+- [ ] Select a market-data provider after coverage and commercial-license review
 - [ ] LangGraph workflow with deterministic test doubles
 - [ ] RAG ingestion and pgvector retrieval
-- [ ] External market and macro API adapters
 - [ ] Evidence citations, freshness checks, and fallback behavior
 - [ ] Automated tests and GitHub Actions
 - [ ] Container build and local development environment
+- [ ] Portfolio import and analysis using synthetic/demo data first
+- [ ] Independent frontend inspired by the Quantra visual language
 - [ ] Terraform and Azure deployment
-- [ ] English documentation, demo, and architecture diagrams
+- [ ] SaaS foundations: authentication, tenant isolation, usage controls, and billing
 
 ## Disclaimer
 
