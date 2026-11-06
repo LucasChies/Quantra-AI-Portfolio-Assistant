@@ -10,6 +10,7 @@ ignore = []
 testpaths = ["tests"]
 pythonpath = ["."]
 addopts = "-q"
+asyncio_mode = "auto"
 
 [tool.coverage.run]
 branch = true
