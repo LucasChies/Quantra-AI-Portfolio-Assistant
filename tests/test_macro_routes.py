@@ -3,10 +3,10 @@ from decimal import Decimal
 
 from fastapi.testclient import TestClient
 
+from app.main import app
 from app.api.routes.macro import get_bcb_provider, get_fred_provider
 from app.integrations.fred import FREDProvider
 from app.integrations.schemas import MacroObservation, MacroSeriesResponse
-from app.main import app
 
 
 client = TestClient(app)
