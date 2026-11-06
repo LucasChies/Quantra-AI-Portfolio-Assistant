@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta, timezone
+from datetime import UTC, date, datetime, timedelta
 from decimal import Decimal, InvalidOperation
 
 import httpx
@@ -30,7 +30,7 @@ class BCBProvider:
         if not series_id.isdigit():
             raise ValueError("BCB SGS series_id must be a numeric series code.")
 
-        today = datetime.now(timezone.utc).date()
+        today = datetime.now(UTC).date()
         end = end_date or today
         start = start_date or (end - timedelta(days=365))
         if start > end:
@@ -42,7 +42,7 @@ class BCBProvider:
             "dataInicial": start.strftime("%d/%m/%Y"),
             "dataFinal": end.strftime("%d/%m/%Y"),
         }
-        retrieved_at = datetime.now(timezone.utc)
+        retrieved_at = datetime.now(UTC)
 
         try:
             if self._http_client is not None:
