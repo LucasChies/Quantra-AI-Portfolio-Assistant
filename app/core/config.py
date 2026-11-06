@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
     api_prefix: str = "/api/v1"
     database_url: str = "postgresql+psycopg://postgres:postgres@localhost:5432/quantra_assistant"
+    fred_api_key: str | None = None
 
     model_config = SettingsConfigDict(
         env_file=".env",
