@@ -5,6 +5,7 @@ from fastapi.testclient import TestClient
 
 from app.api.routes.macro import get_bcb_provider
 from app.integrations.schemas import MacroObservation, MacroSeriesResponse
+
 from app.main import app
 
 
