@@ -1,9 +1,17 @@
+from datetime import date
 from typing import Protocol
+
+from app.integrations.schemas import MacroSeriesResponse
 
 
 class MacroDataProvider(Protocol):
-    """Contract for external macroeconomic-data providers."""
+    """Common interface implemented by macroeconomic data providers."""
 
-    async def get_indicator(self, indicator: str, **params: object) -> dict[str, object]:
-        """Return a normalized macro observation or time series."""
+    async def get_series(
+        self,
+        series_id: str,
+        start_date: date | None = None,
+        end_date: date | None = None,
+    ) -> MacroSeriesResponse:
+        """Return normalized observations for a provider-specific series identifier."""
         ...
