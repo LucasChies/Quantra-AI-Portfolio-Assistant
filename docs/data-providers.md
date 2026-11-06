@@ -8,6 +8,17 @@ Provider selection is intentionally deferred until the first data integration mi
 - **United States:** FRED for selected macroeconomic series; US-listed assets through the same market-data provider where coverage and licensing allow.
 - **Display conventions:** BRL as the initial base/display currency, while preserving the original currency and unit returned by each source. Currency conversion must use a separately sourced FX observation and timestamp.
 
+## Implemented macro adapters
+
+- **BCB SGS:** `BCBProvider` calls the Banco Central do Brasil SGS time-series web service. It accepts a numeric SGS series code and converts the provider's Brazilian date and decimal formats into normalized Python values. If no date range is supplied, the adapter requests the most recent 365 days to avoid unbounded downloads.
+- **FRED:** `FREDProvider` calls the FRED `series/observations` endpoint and requires `FRED_API_KEY`. The API key is read from environment-based settings and is never included in the public source URL returned by the application.
+- Both adapters return the same `MacroSeriesResponse` / `MacroObservation` schema, preserving provider, series identifier, observation date, retrieval timestamp, value, and source URL. Values are represented as `Decimal`, not binary floating-point numbers.
+
+Official documentation:
+- BCB web services: https://www.bcb.gov.br/gestao_site/webservices.asp?frame=1
+- BCB SGS open-data catalogue: https://dadosabertos.bcb.gov.br/
+- FRED observations endpoint: https://fred.stlouisfed.org/docs/api/fred/series_observations.html
+
 ## Market research API requirements
 
 - Quote and historical time-series endpoints
