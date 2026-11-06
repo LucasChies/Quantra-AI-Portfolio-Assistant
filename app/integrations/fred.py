@@ -1,4 +1,4 @@
-from datetime import date, datetime, timezone
+from datetime import UTC, date, datetime
 from decimal import Decimal, InvalidOperation
 
 import httpx
@@ -47,7 +47,7 @@ class FREDProvider:
         if end_date:
             params["observation_end"] = end_date.isoformat()
 
-        retrieved_at = datetime.now(timezone.utc)
+        retrieved_at = datetime.now(UTC)
         try:
             if self._http_client is not None:
                 response = await self._http_client.get(
