@@ -46,3 +46,29 @@ Official documentation:
 No market-data provider is selected as a production dependency in this scaffold. Provider choice must consider not only API access and price, but also commercial use, attribution, display rights, caching, and redistribution restrictions.
 
 Credentials must be stored in environment variables or a managed secret store, never committed.
+
+
+## Curated macro indicator catalogue
+
+The first catalogue is exposed through:
+
+- `GET /api/v1/macro/indicators` — list supported indicator definitions.
+- `GET /api/v1/macro/indicators/{key}` — retrieve observations using a stable application key.
+
+Initial keys:
+
+| Key | Source series | Frequency | Unit |
+| --- | --- | --- | --- |
+| `br.selic` | BCB SGS 432 | Daily | % p.a. |
+| `br.ipca` | BCB SGS 433 | Monthly | % monthly |
+| `br.usd_brl` | BCB SGS 1 | Business daily | BRL per USD |
+| `us.fed_funds` | FRED DFF | Daily | Percent |
+| `us.cpi` | FRED CPIAUCSL | Monthly | Index 1982-1984=100 |
+| `us.real_gdp` | FRED GDPC1 | Quarterly | Billions of chained 2017 USD |
+| `us.unemployment` | FRED UNRATE | Monthly | Percent |
+
+Each definition records the provider series ID, country, unit, frequency, description, source URL, seasonal-adjustment metadata where applicable, and a frequency-specific maximum age for a future freshness evaluation. The maximum-age field is policy metadata only; this release does not yet classify observations as fresh or stale.
+
+Brazilian GDP and unemployment are intentionally not included in this first executable catalogue. They require an IBGE SIDRA adapter rather than pretending that the existing BCB SGS adapter can query them. An IBGE integration is a separate follow-up milestone.
+
+The BCB series IDs and metadata are checked against the official BCB open-data catalogue; FRED series IDs and metadata are checked against the corresponding FRED series pages. See the links embedded in each catalogue entry.
