@@ -1,9 +1,9 @@
-from datetime import UTC, date, datetime
+from datetime import date, datetime, UTC
 from decimal import Decimal
 
 from fastapi.testclient import TestClient
 
-from app.api.routes.macro import get_bcb_provider, get_fred_provider
+from app.api.routes.macro import get_bcb_provider
 from app.integrations.schemas import MacroObservation, MacroSeriesResponse
 from app.main import app
 
