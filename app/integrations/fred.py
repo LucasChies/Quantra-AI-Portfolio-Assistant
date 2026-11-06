@@ -1,4 +1,4 @@
-from datetime import UTC, date, datetime
+from datetime import UTC, date, datetime, timedelta
 from decimal import Decimal, InvalidOperation
 
 import httpx
@@ -34,18 +34,19 @@ class FREDProvider:
             raise DataProviderError("FRED_API_KEY is not configured.")
         if not series_id.strip():
             raise ValueError("FRED series_id cannot be empty.")
-        if start_date and end_date and start_date > end_date:
+        today = datetime.now(UTC).date()
+        end = end_date or today
+        start = start_date or (end - timedelta(days=365))
+        if start > end:
             raise ValueError("start_date must be on or before end_date.")
 
         params: dict[str, str] = {
             "series_id": series_id,
             "api_key": self._api_key,
             "file_type": "json",
+            "observation_start": start.isoformat(),
+            "observation_end": end.isoformat(),
         }
-        if start_date:
-            params["observation_start"] = start_date.isoformat()
-        if end_date:
-            params["observation_end"] = end_date.isoformat()
 
         retrieved_at = datetime.now(UTC)
         try:
