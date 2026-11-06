@@ -40,6 +40,8 @@ async def test_bcb_provider_rejects_non_numeric_series_code() -> None:
 async def test_fred_provider_normalizes_observations_and_hides_api_key() -> None:
     def handler(request: httpx.Request) -> httpx.Response:
         assert request.url.params["api_key"] == "test-secret"
+        assert request.url.params["observation_start"]
+        assert request.url.params["observation_end"]
         return httpx.Response(
             200,
             json={
