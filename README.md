@@ -72,13 +72,13 @@ Setup instructions will be added with the first runnable vertical slice. Never c
 - [x] Repository scaffold and engineering conventions
 - [x] FastAPI health endpoint and configuration
 - [ ] Define normalized macro and market data contracts
-- [ ] Implement Brazilian macro data adapter (BCB SGS)
-- [ ] Implement US macro data adapter (FRED)
+- [x] Implement Brazilian macro data adapter (BCB SGS)
+- [x] Implement US macro data adapter (FRED)
 - [ ] Select a market-data provider after coverage and commercial-license review
 - [ ] LangGraph workflow with deterministic test doubles
 - [ ] RAG ingestion and pgvector retrieval
 - [ ] Evidence citations, freshness checks, and fallback behavior
-- [ ] Automated tests and GitHub Actions
+- [x] Automated tests and GitHub Actions (Ruff + pytest passing)
 - [ ] Container build and local development environment
 - [ ] Portfolio import and analysis using synthetic/demo data first
 - [ ] Independent frontend inspired by the Quantra visual language
