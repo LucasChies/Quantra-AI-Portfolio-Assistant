@@ -4,7 +4,6 @@ from decimal import Decimal
 from app.integrations.freshness import assess_freshness
 from app.integrations.schemas import MacroObservation
 
-
 EVALUATED_ON = date(2026, 11, 9)
 
 
