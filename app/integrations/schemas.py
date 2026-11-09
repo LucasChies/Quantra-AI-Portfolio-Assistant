@@ -1,5 +1,6 @@
 from datetime import date, datetime
 from decimal import Decimal
+from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -18,8 +19,22 @@ class MacroObservation(BaseModel):
     source_url: str
 
 
+class FreshnessMetadata(BaseModel):
+    """Freshness assessment for the latest available economic observation."""
+
+    model_config = ConfigDict(frozen=True)
+
+    status: Literal["fresh", "stale", "unknown"]
+    frequency: str
+    observation_date: date | None
+    age_days: int | None
+    max_age_days: int
+    evaluated_on: date
+    reason: str
+
+
 class MacroSeriesResponse(BaseModel):
-    """A normalized time series plus the metadata needed to assess its provenance."""
+    """A normalized time series plus provenance and optional quality metadata."""
 
     model_config = ConfigDict(frozen=True)
 
@@ -28,3 +43,4 @@ class MacroSeriesResponse(BaseModel):
     observations: list[MacroObservation] = Field(default_factory=list)
     retrieved_at: datetime
     source_url: str
+    freshness: FreshnessMetadata | None = None
