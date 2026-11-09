@@ -61,6 +61,9 @@ def test_catalog_indicator_route_uses_provider_and_adds_unit() -> None:
     assert payload["provider"] == "bcb"
     assert payload["series_id"] == "432"
     assert payload["observations"][0]["unit"] == "% ao ano"
+    assert payload["freshness"]["status"] == "stale"
+    assert payload["freshness"]["frequency"] == "daily"
+    assert payload["freshness"]["max_age_days"] == 5
 
 
 def test_catalog_indicator_route_returns_not_found_for_unknown_key() -> None:
