@@ -2,7 +2,6 @@ from datetime import date
 
 from app.integrations.schemas import FreshnessMetadata, MacroObservation
 
-
 _SUPPORTED_FREQUENCIES = frozenset(
     {"daily", "business_daily", "monthly", "quarterly"}
 )
