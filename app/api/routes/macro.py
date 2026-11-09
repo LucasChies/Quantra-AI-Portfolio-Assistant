@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import UTC, date, datetime
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, Query
@@ -6,6 +6,7 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from app.integrations.bcb import BCBProvider
 from app.integrations.errors import DataProviderError
 from app.integrations.fred import FREDProvider
+from app.integrations.freshness import assess_freshness
 from app.integrations.indicator_catalog import get_indicator, list_indicators
 from app.integrations.schemas import MacroSeriesResponse
 
@@ -81,4 +82,12 @@ async def get_catalog_indicator_series(
         observation.model_copy(update={"unit": indicator.unit})
         for observation in result.observations
     ]
-    return result.model_copy(update={"observations": observations})
+    freshness = assess_freshness(
+        observations=observations,
+        frequency=indicator.frequency,
+        max_age_days=indicator.freshness_max_age_days,
+        evaluated_on=datetime.now(UTC).date(),
+    )
+    return result.model_copy(
+        update={"observations": observations, "freshness": freshness}
+    )
